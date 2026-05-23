@@ -25,7 +25,11 @@ function App() {
     setUpdateError("");
     setUpToDate(false);
     try {
-      const update = await check();
+      const update = await check({
+        headers: {
+          Authorization: `token ${import.meta.env.VITE_GITHUB_PAT}`,
+        },
+      });
       if (update) {
         setUpdateAvailable(update);
       } else {
