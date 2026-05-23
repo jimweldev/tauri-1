@@ -66,3 +66,25 @@ jobs:
           releaseDraft: false
           prerelease: false
           args: ${{ matrix.args }}
+
+      - name: Publish update manifest
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Download latest.json from the release
+          gh release download ${{ github.ref_name }} -p latest.json -D /tmp
+
+          # Clone main branch into a temp directory
+          git clone --depth 1 --branch main "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" /tmp/repo
+
+          # Copy latest.json into updates/
+          mkdir -p /tmp/repo/updates
+          cp /tmp/latest.json /tmp/repo/updates/latest.json
+
+          # Commit and push
+          cd /tmp/repo
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add updates/latest.json
+          git commit -m "chore: update latest.json for ${{ github.ref_name }}" || exit 0
+          git push

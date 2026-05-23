@@ -27,7 +27,7 @@ function App() {
     try {
       const update = await check({
         headers: {
-          Authorization: `token ${import.meta.env.VITE_GITHUB_PAT}`,
+          Authorization: `Bearer ${import.meta.env.VITE_GITHUB_PAT}`,
         },
       });
       if (update) {
@@ -49,22 +49,31 @@ function App() {
     try {
       let totalLength = 0;
       let downloaded = 0;
-      await updateAvailable.downloadAndInstall((event) => {
-        switch (event.event) {
-          case "Started":
-            totalLength = event.data.contentLength ?? 0;
-            break;
-          case "Progress":
-            downloaded += event.data.chunkLength;
-            if (totalLength > 0) {
-              setDownloadProgress(Math.round((downloaded / totalLength) * 100));
-            }
-            break;
-          case "Finished":
-            setDownloadProgress(100);
-            break;
+      await updateAvailable.downloadAndInstall(
+        (event) => {
+          switch (event.event) {
+            case "Started":
+              totalLength = event.data.contentLength ?? 0;
+              break;
+            case "Progress":
+              downloaded += event.data.chunkLength;
+              if (totalLength > 0) {
+                setDownloadProgress(
+                  Math.round((downloaded / totalLength) * 100)
+                );
+              }
+              break;
+            case "Finished":
+              setDownloadProgress(100);
+              break;
+          }
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_GITHUB_PAT}`,
+          },
         }
-      });
+      );
       await relaunch();
     } catch (e) {
       setUpdateError(`Failed to install update: ${e}`);
