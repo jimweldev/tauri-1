@@ -95,6 +95,117 @@ button {
   margin-right: 5px;
 }
 
+/* Update Banner */
+.update-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #396cd8;
+  color: #ffffff;
+  font-size: 0.9em;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.update-banner.update-error {
+  background-color: #d83939;
+}
+
+.update-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.update-icon {
+  font-size: 1.2em;
+}
+
+.update-btn {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #396cd8;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.85em;
+  box-shadow: none;
+}
+
+.update-btn:hover {
+  background-color: #e8e8e8;
+  border-color: transparent;
+}
+
+.dismiss-btn {
+  color: #d83939;
+}
+
+.update-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress-bar {
+  width: 150px;
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #ffffff;
+  border-radius: 4px;
+  transition: width 0.2s ease;
+}
+
+.progress-text {
+  font-size: 0.85em;
+  font-weight: 600;
+  min-width: 36px;
+}
+
+.update-section {
+  margin-top: 20px;
+}
+
+.check-update-btn {
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background-color: #396cd8;
+  color: #ffffff;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 0.9em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.check-update-btn:hover {
+  background-color: #2a5ab8;
+  border-color: transparent;
+}
+
+.check-update-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.up-to-date {
+  color: #4caf50;
+  font-size: 0.9em;
+  margin-top: 8px;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     color: #f6f6f6;
